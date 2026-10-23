@@ -1,0 +1,13 @@
+export JENKINS_NODE_COOKIE=dontkillme
+export BUILD_ID=dontkillme
+/app/tomcat/bin/shutdown.sh || true
+sleep 10
+
+rm -rf /app/tomcat/webapps/nexus-java1/
+rm -rf /app/tomcat/webapps/nexus-java1.war
+
+curl -u admin:Rohit@123 -o /app/tomcat/webapps/nexus-java1.war "http://localhost:8081/repository/nexus-java1/nexus-java1/webapp/$VERSION/webapp-$VERSION.war" || true
+
+nohup /app/tomcat/bin/startup.sh
+
+sleep 10
